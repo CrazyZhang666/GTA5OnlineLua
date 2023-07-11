@@ -63,8 +63,8 @@ jobs:
       - name: Download Alicelua kiddion
         run: |
            cd GTA5OnlineLua/Kiddion
-           curl -LO https://down.bbfas.com/Alice/LuaScript
-           mv Alice-Lua.zip AliceLua.zip
+           curl -o AliceLua.zip https://down.bbfas.com/Alice/LuaScript
+     
            
       - name: Read HeistLua Real Version
         id: read_file
