@@ -249,6 +249,11 @@ jobs:
               path: GTA5OnlineLua
               submodules: recursive
               
+       - name: git pull6
+         run: |
+          cd GTA5OnlineLua
+          git pull
+          
        - name: Echo json sha256
          id: build_sha
          run: |
