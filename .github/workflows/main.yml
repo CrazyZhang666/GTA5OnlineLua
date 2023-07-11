@@ -222,10 +222,35 @@ jobs:
        - name: Create Release
          uses: softprops/action-gh-release@v1
          with:
-          name: update-$(date +'%Y%m%d%H%M%S')
+          name: update
           tag_name: update
           body: |
             **This release has been built by Github Actions**
         
           files: |
             GTA5OnlineLua/bin/Release/net6.0/GTA5OnlineLua.exe
+            
+       - name: Checkout Release Branch
+         uses: actions/checkout@v3
+         with:
+              path: WorkRel
+              ref: 'Release'
+              
+       - name: git pull Release
+         run: |
+          cd WorkRel
+          git pull
+          
+       - name: Copy Json to Release Branch
+         run: |
+           copy   GTA5OnlineLua/Release/Kiddion.json  WorkRel/Release/Kiddion.json  
+           copy   GTA5OnlineLua/Release/YimMenu.json  WorkRel/Release/YimMenu.json  
+           
+       - name: git push to other Branch
+         run: |
+          cd WorkRel
+          git config --global user.name "sch-bot"
+          git config --global user.email "your-email@example.com"
+          git add .
+          git commit -m 'push to Rel branch'
+          git push
