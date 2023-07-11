@@ -64,7 +64,7 @@ jobs:
         run: |
            cd GTA5OnlineLua/Kiddion
            curl -LO https://down.bbfas.com/Alice/LuaScript
-           move Alice-Lua.zip AliceLua.zip
+           mv Alice-Lua.zip AliceLua.zip
            
       - name: Read HeistLua Real Version
         id: read_file
