@@ -222,10 +222,10 @@ jobs:
        - name: Create Release
          uses: softprops/action-gh-release@v1
          with:
-          name: update
+          name: update-$(date +'%Y%m%d%H%M%S')
           tag_name: update
           body: |
             **This release has been built by Github Actions**
-              [$(date +'%Y/%m/%d %H:%M:%S')]
+        
           files: |
             GTA5OnlineLua/bin/Release/net6.0/GTA5OnlineLua.exe
