@@ -45,6 +45,21 @@ jobs:
           path: SchLua
           submodules: recursive
           
+      - name: git pull3
+        run: |
+          cd GTA5OnlineLua
+          git pull
+          
+      - name: git pull4
+        run: |
+          cd HeistLua
+          git pull
+          
+      - name: git pull5
+        run: |
+          cd SchLua
+          git pull
+          
       - name: Read HeistLua Real Version
         id: read_file
         run: |
@@ -203,10 +218,11 @@ jobs:
           git add .
           git commit -m "update json"
           git push
+          
        - name: Create Release
          uses: softprops/action-gh-release@v1
          with:
-          name: update
+          name: update- $(date +'%Y/%m/%d %H:%M:%S')
           tag_name: update
           body: |
             **This release has been built by Github Actions**
