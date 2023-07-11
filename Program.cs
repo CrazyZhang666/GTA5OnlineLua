@@ -6,8 +6,6 @@ namespace GTA5OnlineLua;
 
 internal class Program
 {
-    private const string host = "https://ghproxy.com/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main";
-
     static void Main(string[] args)
     {
         var kiddionLua = new List<LuaInfo>();
@@ -46,8 +44,8 @@ internal class Program
             var version = IniHelper.ReadValue("LuaInfo", "Version", file);
             var update = IniHelper.ReadValue("LuaInfo", "Update", file);
 
-            var size = GetFileSize(luaFileInfo.Length);
-            var download = $"{host}/{dirName}/{luaFileInfo.Name}";
+            var size = GetFileFormatSize(luaFileInfo.Length);
+            var download = $"{dirName}/{luaFileInfo.Name}";
 
             onlineLua.Add(new()
             {
@@ -57,14 +55,30 @@ internal class Program
                 Version = version,
                 Update = update,
                 Size = size,
-                Download = download
+                Download = GetDownloadAddress(download)
             });
 
             Console.WriteLine($"{dirName} 脚本: {luaFileInfo.Name} 获取信息成功");
         }
     }
 
-    private static string GetFileSize(long size)
+    private static List<string> GetDownloadAddress(string link)
+    {
+        var downloads = new List<string>
+        {
+            $"https://ghproxy.com/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/{link}",
+            $"https://fastly.jsdelivr.net/gh/CrazyZhang666/GTA5OnlineLua@main/{link}",
+            $"https://ghproxy.net/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/{link}",
+            $"https://raw.fastgit.ixmu.net/CrazyZhang666/GTA5OnlineLua/main/{link}",
+            $"https://gcore.jsdelivr.net/gh/CrazyZhang666/GTA5OnlineLua@main/{link}",
+            $"https://jsdelivr.b-cdn.net/gh/CrazyZhang666/GTA5OnlineLua@main/{link}",
+            $"https://github.moeyy.xyz/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/{link}"
+        };
+
+        return downloads;
+    }
+
+    private static string GetFileFormatSize(long size)
     {
         var kb = size / 1024.0f;
 

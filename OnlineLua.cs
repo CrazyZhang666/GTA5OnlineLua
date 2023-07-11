@@ -1,4 +1,6 @@
-﻿namespace GTA5OnlineLua;
+﻿using System.Collections.Generic;
+
+namespace GTA5OnlineLua;
 
 public class LuaInfo
 {
@@ -8,5 +10,5 @@ public class LuaInfo
     public string Version { get; set; }
     public string Update { get; set; }
     public string Size { get; set; }
-    public string Download { get; set; }
+    public List<string> Download { get; set; }
 }
