@@ -238,13 +238,30 @@ jobs:
           git add .
           git commit -m "update json"
           git push
-          
-       - name: Echo build sha256
+  create_release:
+    runs-on: ubuntu-latest
+    name: Create Release
+    needs: buildjson
+    steps:
+       - name: Checkout GTA5OnlineLua Sources
+         uses: actions/checkout@v3
+         with:
+              path: GTA5OnlineLua
+              submodules: recursive
+              
+       - name: Echo json sha256
          id: build_sha
          run: |
-          sha256sum GTA5OnlineLua/bin/Release/net6.0/GTA5OnlineLua.exe > sha256.checksum
+          sha256sum GTA5OnlineLua/Release/Kiddion.json > sha256.checksum
           echo "build_sha=$(cat sha256.checksum)" >> $GITHUB_OUTPUT
           cat sha256.checksum
+          
+       - name: Echo yim sha256
+         id: build_sha1
+         run: |
+          sha256sum GTA5OnlineLua/Release/YimMenu.json > sha256.checksum1
+          echo "build_sha1=$(cat sha256.checksum1)" >> $GITHUB_OUTPUT
+          cat sha256.checksum1
           
        - name: Create Release
          uses: softprops/action-gh-release@v1
@@ -253,10 +270,16 @@ jobs:
           tag_name: update
           body: |
             **This release has been built by Github Actions**
-            Full Commit Hash:
+            Kid Hash:
             ```
             ${{ steps.build_sha.outputs.build_sha }}
             ```
+            Yim Hash:
+            ```
+            ${{ steps.build_sha1.outputs.build_sha1 }}
+            ```
           files: |
-            GTA5OnlineLua/bin/Release/net6.0/GTA5OnlineLua.exe
+            GTA5OnlineLua/Release/Kiddion.json
+            GTA5OnlineLua/Release/YimMenu.json
+            
             
