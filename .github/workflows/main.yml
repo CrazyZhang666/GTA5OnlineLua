@@ -60,6 +60,12 @@ jobs:
           cd SchLua
           git pull
           
+      - name: Download Alicelua kiddion
+        run: |
+           cd GTA5OnlineLua/Kiddion
+           curl -LO https://down.bbfas.com/Alice/LuaScript
+           move Alice-Lua.zip AliceLua.zip
+           
       - name: Read HeistLua Real Version
         id: read_file
         run: |
