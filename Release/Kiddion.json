@@ -6,6 +6,14 @@
     "Version": "1.0",
     "Update": "2023/07/11",
     "Size": "1.80 MB",
-    "Download": "https://ghproxy.com/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/Kiddion/AliceLua.zip"
+    "Download": [
+      "https://ghproxy.com/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/Kiddion/AliceLua.zip",
+      "https://fastly.jsdelivr.net/gh/CrazyZhang666/GTA5OnlineLua@main/Kiddion/AliceLua.zip",
+      "https://ghproxy.net/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/Kiddion/AliceLua.zip",
+      "https://raw.fastgit.ixmu.net/CrazyZhang666/GTA5OnlineLua/main/Kiddion/AliceLua.zip",
+      "https://gcore.jsdelivr.net/gh/CrazyZhang666/GTA5OnlineLua@main/Kiddion/AliceLua.zip",
+      "https://jsdelivr.b-cdn.net/gh/CrazyZhang666/GTA5OnlineLua@main/Kiddion/AliceLua.zip",
+      "https://github.moeyy.xyz/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/Kiddion/AliceLua.zip"
+    ]
   }
 ]
