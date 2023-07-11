@@ -239,6 +239,13 @@ jobs:
           git commit -m "update json"
           git push
           
+       - name: Echo build sha256
+         id: build_sha
+         run: |
+          sha256sum GTA5OnlineLua/bin/Release/net6.0/GTA5OnlineLua.exe > sha256.checksum
+          echo "build_sha=$(cat sha256.checksum)" >> $GITHUB_OUTPUT
+          cat sha256.checksum
+          
        - name: Create Release
          uses: softprops/action-gh-release@v1
          with:
@@ -246,7 +253,10 @@ jobs:
           tag_name: update
           body: |
             **This release has been built by Github Actions**
-        
+            Full Commit Hash:
+            ```
+            ${{ steps.build_sha.outputs.build_sha }}
+            ```
           files: |
             GTA5OnlineLua/bin/Release/net6.0/GTA5OnlineLua.exe
             
