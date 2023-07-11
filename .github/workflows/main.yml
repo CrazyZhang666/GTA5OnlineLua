@@ -60,11 +60,25 @@ jobs:
           cd SchLua
           git pull
           
-      - name: Download Alicelua kiddion
+      - name: Download Alicelua kiddion zip
         run: |
            cd GTA5OnlineLua/Kiddion
-           curl -o AliceLua.zip https://down.bbfas.com/Alice/LuaScript
-     
+           if [ -f "AliceLua.zip" ]; then
+           rm AliceLua.zip
+           fi
+           aria2c -o  AliceLua.zip https://down.bbfas.com/Alice/LuaScript
+           
+      - name: Download Alicelua kiddion update log
+        run: |
+           cd GTA5OnlineLua/      
+           curl -o up.txt https://down.bbfas.com/Alice/up.txt
+           first_line=$(head -n 1 up.txt)
+           first_line="${first_line//:/}"
+           first_line_mod="Update = $first_line"
+           rm up.txt
+           sed -i '/Update/d' Kiddion/AliceLua.ini
+           echo "$first_line_mod" >> Kiddion/AliceLua.ini
+           
            
       - name: Read HeistLua Real Version
         id: read_file
