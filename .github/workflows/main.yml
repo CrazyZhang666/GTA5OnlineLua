@@ -14,63 +14,50 @@ jobs:
     steps:
            
       - name: Checkout GTA5OnlineLua Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          
           path: GTA5OnlineLua
-          submodules: recursive
-          
-          
+            
       - name: Checkout HeistLua Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: wangzixuank/YimMenu-HeistLua
           path: HeistLua
-          submodules: recursive
           
       - name: Checkout SchLua Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: sch-lda/SCH-LUA-YIMMENU
           path: SchLua
-          submodules: recursive
-                    
+          
       - name: Checkout WeaponAttribute Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: TCRoid/YimMenu-Lua-WeaponAttribute
           path: WeaponAttribute
-          fetch-depth: 0
-          
-      - name: git pull2a
-        run: |
-          cd WeaponAttribute
-          git pull
-                    
+          fetch-depth: 1
+
       - name: Checkout RScript Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: TCRoid/YimMenu-Lua-RScript
           path: RScript
-          fetch-depth: 0
-          
-      - name: git pull1a
+          fetch-depth: 1
+
+      - name: git pull1
         run: |
+          cd WeaponAttribute
+          git pull
+          cd ..
           cd RScript
           git pull
-          
-      - name: git pull3
-        run: |
+          cd ..
           cd GTA5OnlineLua
           git pull
-          
-      - name: git pull4
-        run: |
+          cd ..
           cd HeistLua
           git pull
-          
-      - name: git pull5
-        run: |
+          cd ..
           cd SchLua
           git pull
 
@@ -155,74 +142,65 @@ jobs:
             echo "Update = $(date +'%Y/%m/%d')" >> GTA5OnlineLua/YimMenu/WeaponAttribute.ini
            fi
                         
-     # - name: RScript Lua Update Checker
-     #   run: |
-     #      old_hash2=$(sha256sum tmpdir/RScript.lua | awk '{print $1}')
-     #      new_hash2=$(sha256sum RScript/RScript.lua | awk '{print $1}')
-     #      if [ "$old_hash2" == "$new_hash2" ]; then
-     #       echo "RScript.lua无更新"
-     #      else
-     #       zip -j -r tmpdir/RScript.zip RScript/RScript.lua
-     #       mv tmpdir/RScript.zip GTA5OnlineLua/YimMenu/
-     #       sed -i '/Update/d' GTA5OnlineLua/YimMenu/RScript.ini
-     #       echo "Update = $(date +'%Y/%m/%d')" >> GTA5OnlineLua/YimMenu/RScript.ini
-     #      fi
+      - name: RScript Lua Update Checker
+        run: |
+           old_hash2=$(sha256sum tmpdir/RScript.lua | awk '{print $1}')
+           new_hash2=$(sha256sum RScript/RScript.lua | awk '{print $1}')
+           if [ "$old_hash2" == "$new_hash2" ]; then
+            echo "RScript.lua无更新"
+           else
+            cd RScript
+            zip -r ..tmpdir/RScript.zip .
+            cd ..
+            mv tmpdir/RScript.zip GTA5OnlineLua/YimMenu/
+            sed -i '/Update/d' GTA5OnlineLua/YimMenu/RScript.ini
+            echo "Update = $(date +'%Y/%m/%d')" >> GTA5OnlineLua/YimMenu/RScript.ini
+           fi
            
-      - name: Read HeistLua Real Version
-        id: read_file
+      - name: Read HeistLua Lua Version
         run: |
-         file_path="HeistLua/scripts/Heist.lua"
-         version=$(head -n 1 "$file_path" | grep -oP '(?<=v)\d+\.\d+')
-         echo "::set-output name=version::$version"
-
-      
+         echo "Ver_HeistLua_R=$(head -n 1 "HeistLua/scripts/Heist.lua" | grep -oP '(?<=v)\d+\.\d+')" >> $GITHUB_ENV
+         
       - name: Read HeistLua ini Version
-        id: read_ini
         run: |
-          version2=$(awk -F "=" '/Version/ {print $2}' GTA5OnlineLua/YimMenu/HeistLua.ini | sed 's/^[ \t]*//')
-          echo "::set-output name=version2::$version2"
+          echo "Ver_HeistLua_C=$(awk -F "=" '/Version/ {print $2}' GTA5OnlineLua/YimMenu/HeistLua.ini | sed 's/^[ \t]*//')" >> $GITHUB_ENV
           
       - name: Update HeistLua ini Version
         run: |
-         if [[ "${{ steps.read_file.outputs.version }}" > "${{ steps.read_ini.outputs.version2 }}" ]]; then
-            sed -i "s/Version = ${{ steps.read_ini.outputs.version2 }}/Version = ${{ steps.read_file.outputs.version }}/" GTA5OnlineLua/YimMenu/HeistLua.ini
+         if [[ "$Ver_HeistLua_R" != "$Ver_HeistLua_C" ]]; then
+            sed -i "s/Version = $Ver_HeistLua_R/Version = $Ver_HeistLua_C/" GTA5OnlineLua/YimMenu/HeistLua.ini
           else
             echo "无需更新版本号"
           fi
           
       - name: Update date HeistLua
         run: |
-          if [[ "${{ steps.read_file.outputs.version }}" > "${{ steps.read_ini.outputs.version2 }}" ]]; then
+          if [[ "$Ver_HeistLua_R" != "$Ver_HeistLua_C" ]]; then
             sed -i '/Update/d' GTA5OnlineLua/YimMenu/HeistLua.ini
             echo "Update = $(date +'%Y/%m/%d')" >> GTA5OnlineLua/YimMenu/HeistLua.ini
           else
             echo "无需更新日期"
           fi
         
-      - name: Read Schlua Real Version
-        id: read_sch
+      - name: Read Schlua lua Version
         run: |
-         file_path="SchLua/sch.lua"
-         version3=$(head -n 1 "$file_path" | grep -oP '(?<=v)\d+\.\d+')
-         echo "::set-output name=version3::$version3"
+         echo "Ver_SCHLua_R=$(head -n 1 "SchLua/sch.lua" | grep -oP '(?<=v)\d+\.\d+')" >> $GITHUB_ENV
          
       - name: Read Schlua ini Version
-        id: read_schini
         run: |
-          version4=$(awk -F "=" '/Version/ {print $2}' GTA5OnlineLua/YimMenu/SchLua.ini | sed 's/^[ \t]*//')
-          echo "::set-output name=version4::$version4"
+          echo "Ver_SCHLua_C=$(awk -F "=" '/Version/ {print $2}' GTA5OnlineLua/YimMenu/SchLua.ini | sed 's/^[ \t]*//')" >> $GITHUB_ENV
           
       - name: Update Schlua ini Version
         run: |
-         if [[ "${{ steps.read_sch.outputs.version3 }}" > "${{ steps.read_schini.outputs.version4 }}" ]]; then
-            sed -i "s/Version = ${{ steps.read_schini.outputs.version4 }}/Version = ${{ steps.read_sch.outputs.version3 }}/" GTA5OnlineLua/YimMenu/SchLua.ini
+         if [[ "$Ver_SCHLua_R" != "$Ver_SCHLua_C" }}" ]]; then
+            sed -i "s/Version = $Ver_SCHLua_R/Version = $Ver_SCHLua_C/" GTA5OnlineLua/YimMenu/SchLua.ini
           else
             echo "无需更新版本号SchLua.ini"
           fi
           
       - name: Update date SchLua
         run: |
-          if [[ "${{ steps.read_sch.outputs.version3 }}" > "${{ steps.read_schini.outputs.version4 }}" ]]; then
+          if [[ "$Ver_SCHLua_R" != "$Ver_SCHLua_C" }}" ]]; then
             sed -i '/Update/d' GTA5OnlineLua/YimMenu/SchLua.ini
             echo "Update = $(date +'%Y/%m/%d')" >> GTA5OnlineLua/YimMenu/SchLua.ini
           else
@@ -231,7 +209,7 @@ jobs:
         
       - name: Update HeistLua 
         run: |
-          if [[ "${{ steps.read_file.outputs.version }}" > "${{ steps.read_ini.outputs.version2 }}" ]]; then
+          if [[ "$Ver_HeistLua_R" != "$Ver_HeistLua_C" ]]; then
             cd HeistLua/scripts/
             zip -r ../HeistLua.zip .
             mv HeistLua/HeistLua.zip GTA5OnlineLua/YimMenu/
@@ -241,7 +219,7 @@ jobs:
           
       - name: Update Schlua
         run: |
-          if [[ "${{ steps.read_sch.outputs.version3 }}" > "${{ steps.read_schini.outputs.version4 }}" ]]; then
+          if [[ "$Ver_SCHLua_R" != "$Ver_SCHLua_C" }}" ]]; then
             zip -j -r HeistLua/SchLua.zip SchLua/sch.lua
             mv HeistLua/SchLua.zip GTA5OnlineLua/YimMenu/
           else
@@ -262,10 +240,10 @@ jobs:
     runs-on: windows-latest
     steps:
        - name: Checkout GTA5OnlineLua Sources
-         uses: actions/checkout@v3
+         uses: actions/checkout@v4
          with:
               path: GTA5OnlineLua
-              submodules: recursive
+              
        - name: Setup MSBuild
          uses: microsoft/setup-msbuild@v1.1
 
@@ -277,7 +255,7 @@ jobs:
        - name: Setup Nuget
          uses: nuget/setup-nuget@v1
 
-       - name: git pull1
+       - name: git pull2
          run: |
           cd GTA5OnlineLua
           git pull
@@ -319,12 +297,11 @@ jobs:
     needs: generatejson
     steps:
        - name: Checkout GTA5OnlineLua Sources
-         uses: actions/checkout@v3
+         uses: actions/checkout@v4
          with:
               path: GTA5OnlineLua
-              submodules: recursive
               
-       - name: git pull6
+       - name: git pull3
          run: |
           cd GTA5OnlineLua
           git pull

@@ -11,63 +11,56 @@ jobs:
 
     steps:
       - name: Checkout GTA5OnlineLua Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: GTA5OnlineLua
-          fetch-depth: 0
+          fetch-depth: 1
   
       - name: Checkout HeistLua Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: wangzixuank/YimMenu-HeistLua
           path: HeistLua
-          fetch-depth: 0
+          fetch-depth: 1
           
       - name: Checkout SchLua Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: sch-lda/SCH-LUA-YIMMENU
           path: SchLua
-          fetch-depth: 0
+          fetch-depth: 1
           
       - name: Checkout WeaponAttribute Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: TCRoid/YimMenu-Lua-WeaponAttribute
           path: WeaponAttribute
-          fetch-depth: 0
+          fetch-depth: 1
           
-      - name: git pull2
-        run: |
-          cd WeaponAttribute
-          git pull
-                    
       - name: Checkout RScript Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: TCRoid/YimMenu-Lua-RScript
           path: RScript
-          fetch-depth: 0
-          
-      - name: git pull1
+          fetch-depth: 1
+
+      - name: git pull
         run: |
+          cd WeaponAttribute
+          git pull
+          cd ..
           cd RScript
           git pull
-          
-      - name: git pull3
-        run: |
+          cd ..
           cd GTA5OnlineLua
           git pull
-          
-      - name: git pull4
-        run: |
+          cd ..
           cd HeistLua
           git pull
-          
-      - name: git pull5
-        run: |
+          cd ..
           cd SchLua
           git pull
+          cd ..
           
       - name: Download Alicelua kiddion zip
         run: |
@@ -113,45 +106,34 @@ jobs:
       - name: Create tmpdir
         run: mkdir tmpdir
                                   
-      - name: Read HeistLua Real Version
-        id: read_file
+      - name: Read HeistLua Lua Version
         run: |
-         file_path="HeistLua/scripts/Heist.lua"
-         version=$(head -n 1 "$file_path" | grep -oP '(?<=v)\d+\.\d+')
-         echo "::set-output name=version::$version"
+         echo "Ver_HeistLua_R=$(head -n 1 "HeistLua/scripts/Heist.lua" | grep -oP '(?<=v)\d+\.\d+')" >> $GITHUB_ENV
          
       - name: Read HeistLua ini Version
-        id: read_ini
         run: |
-          version2=$(awk -F "=" '/Version/ {print $2}' GTA5OnlineLua/YimMenu/HeistLua.ini | sed 's/^[ \t]*//')
-          echo "::set-output name=version2::$version2"
+          echo "Ver_HeistLua_C=$(awk -F "=" '/Version/ {print $2}' GTA5OnlineLua/YimMenu/HeistLua.ini | sed 's/^[ \t]*//')" >> $GITHUB_ENV
           
       - name: HeistLua Update Checker
         run: |
-         if [[ "${{ steps.read_file.outputs.version }}" > "${{ steps.read_ini.outputs.version2 }}" ]]; then
+          if [[ "$Ver_HeistLua_R" != "$Ver_HeistLua_C" ]]; then
             cd GTA5OnlineLua/
             echo "HeistLua" > trigger.txt
           else
             echo "HeistLua无更新"
           fi
           
-        
-      - name: Read Schlua Real Version
-        id: read_sch
+      - name: Read Schlua lua Version
         run: |
-         file_path="SchLua/sch.lua"
-         version3=$(head -n 1 "$file_path" | grep -oP '(?<=v)\d+\.\d+')
-         echo "::set-output name=version3::$version3"
+         echo "Ver_SCHLua_R=$(head -n 1 "SchLua/sch.lua" | grep -oP '(?<=v)\d+\.\d+')" >> $GITHUB_ENV
          
       - name: Read Schlua ini Version
-        id: read_schini
         run: |
-          version4=$(awk -F "=" '/Version/ {print $2}' GTA5OnlineLua/YimMenu/SchLua.ini | sed 's/^[ \t]*//')
-          echo "::set-output name=version4::$version4"
+          echo "Ver_SCHLua_C=$(awk -F "=" '/Version/ {print $2}' GTA5OnlineLua/YimMenu/SchLua.ini | sed 's/^[ \t]*//')" >> $GITHUB_ENV
           
       - name: Schlua Update Checker
         run: |
-         if [[ "${{ steps.read_sch.outputs.version3 }}" > "${{ steps.read_schini.outputs.version4 }}" ]]; then
+         if [[ "$Ver_SCHLua_R" != "$Ver_SCHLua_C" ]]; then
             cd GTA5OnlineLua/
             echo "sch lua" > trigger.txt
           else
