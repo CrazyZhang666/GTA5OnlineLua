@@ -60,7 +60,6 @@ jobs:
           cd ..
           cd SchLua
           git pull
-          cd ..
           
       - name: Download Alicelua kiddion zip
         run: |
