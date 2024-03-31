@@ -35,6 +35,12 @@
       <None Update="YimMenu\AliceLua.zip">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="YimMenu\ExtrasAddon.ini">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="YimMenu\ExtrasAddon.zip">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
       <None Update="YimMenu\HeistLua.ini">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
