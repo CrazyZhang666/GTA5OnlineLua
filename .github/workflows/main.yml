@@ -3,9 +3,7 @@ name: Auto-sync-lua
 on:
   workflow_dispatch:
   repository_dispatch: # 允许通过 API 触发
-  push:
-    branches:
-    - main
+
     
 jobs:
   synclua:
