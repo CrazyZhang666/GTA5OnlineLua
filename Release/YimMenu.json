@@ -16,6 +16,22 @@
     ]
   },
   {
+    "Name": "ExtrasAddon",
+    "Author": "Deadlineem(fhen123_06870 翻译)",
+    "Description": "This addon features extra tools for YimMenu that arent already a part of the stand alone base version",
+    "Version": "1.03",
+    "Update": "2024/03/31",
+    "Size": "207.08 KB",
+    "Download": [
+      "https://blog.host3650.live/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/YimMenu/ExtrasAddon.zip",
+      "https://ghproxy.net/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/YimMenu/ExtrasAddon.zip",
+      "https://gcore.jsdelivr.net/gh/CrazyZhang666/GTA5OnlineLua@main/YimMenu/ExtrasAddon.zip",
+      "https://jsdelivr.b-cdn.net/gh/CrazyZhang666/GTA5OnlineLua@main/YimMenu/ExtrasAddon.zip",
+      "https://github.moeyy.xyz/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/YimMenu/ExtrasAddon.zip",
+      "https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/YimMenu/ExtrasAddon.zip"
+    ]
+  },
+  {
     "Name": "Heist Lua",
     "Author": "wangzixuan",
     "Description": "佩岛/赌场/末日任务脚本",
