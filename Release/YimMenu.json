@@ -64,6 +64,22 @@
     ]
   },
   {
+    "Name": "RS_Missions",
+    "Author": "Rostal",
+    "Description": "[适配GTAOL1.68]任务脚本",
+    "Version": "3.01",
+    "Update": "2024/04/12",
+    "Size": "5.04 KB",
+    "Download": [
+      "https://blog.host3650.live/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/YimMenu/RS_Missions.zip",
+      "https://ghproxy.net/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/YimMenu/RS_Missions.zip",
+      "https://gcore.jsdelivr.net/gh/CrazyZhang666/GTA5OnlineLua@main/YimMenu/RS_Missions.zip",
+      "https://jsdelivr.b-cdn.net/gh/CrazyZhang666/GTA5OnlineLua@main/YimMenu/RS_Missions.zip",
+      "https://github.moeyy.xyz/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/YimMenu/RS_Missions.zip",
+      "https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/YimMenu/RS_Missions.zip"
+    ]
+  },
+  {
     "Name": "SCH Lua",
     "Author": "sch",
     "Description": "[适配GTAOL1.68]discord用户yeahsch的自用脚本,第一个开源yim开发者示例lua",
