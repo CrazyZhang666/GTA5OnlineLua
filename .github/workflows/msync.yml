@@ -65,7 +65,7 @@ jobs:
         run: |
            mkdir AlicetmpKiddion
            cd AlicetmpKiddion
-           aria2c -o  AliceLua.zip https://dl.host3650.live/Lua/Alice-lua.zip
+           aria2c -o  AliceLua.zip https://rcus2.cc2077.site/Lua/Alice-lua.zip
 
       - name: Calculate SHA256 hash for oldAliceKid
         run: echo "SHA256_AKO=$(sha256sum GTA5OnlineLua/Kiddion/AliceLua.zip | cut -d' ' -f1)" >> $GITHUB_ENV
@@ -95,7 +95,7 @@ jobs:
         run: |
            mkdir AlicetmpYimmenu
            cd AlicetmpYimmenu
-           aria2c -o  AliceLua.zip https://dl.host3650.live/Lua/Alice2333_for_yimmenu.zip
+           aria2c -o  AliceLua.zip https://rcus2.cc2077.site/Lua/Alice2333_for_yimmenu.zip
 
       - name: Calculate SHA256 hash for oldAliceYim
         run: echo "SHA256_AYO=$(sha256sum GTA5OnlineLua/YimMenu/AliceLua.zip | cut -d' ' -f1)" >> $GITHUB_ENV
