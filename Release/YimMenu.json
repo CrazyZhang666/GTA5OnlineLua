@@ -32,9 +32,9 @@
     ]
   },
   {
-    "Name": "[停用 ]Heist Lua",
+    "Name": "Heist Lua",
     "Author": "wangzixuan",
-    "Description": "已过时 暂不可用",
+    "Description": "佩岛/赌场/末日任务脚本",
     "Version": "1.85",
     "Update": "2024/05/14",
     "Size": "4.50 KB",
