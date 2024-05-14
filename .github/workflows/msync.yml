@@ -215,6 +215,7 @@ jobs:
           if [[ "$Ver_HeistLua_R" != "$Ver_HeistLua_C" ]]; then
             cd HeistLua/scripts/
             zip -r ../HeistLua.zip .
+            cd ../..
             mv HeistLua/HeistLua.zip GTA5OnlineLua/YimMenu/
           else
             echo "无需更新HeistLua"
