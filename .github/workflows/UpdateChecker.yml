@@ -175,6 +175,7 @@ jobs:
               if [ "$old_hash3" == "$new_hash3" ]; then
                echo "RS-Missions无更新"
               else
+               echo "RSmissions"
                echo "RS-Missions" > trigger.txt
               fi
 
