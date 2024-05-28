@@ -36,7 +36,14 @@ jobs:
           repository: TCRoid/YimMenu-Lua-WeaponAttribute
           path: WeaponAttribute
           fetch-depth: 1
-          
+
+      - name: Checkout RS-Missions Sources
+        uses: actions/checkout@v4
+        with:
+            repository: TCRoid/YimMenu-Lua-RS-Missions
+            path: RS-Missions
+            fetch-depth: 1
+
       - name: Checkout RScript Sources
         uses: actions/checkout@v4
         with:
@@ -46,6 +53,9 @@ jobs:
 
       - name: git pull
         run: |
+          cd RS-Missions
+          git pull
+          cd ..
           cd WeaponAttribute
           git pull
           cd ..
@@ -144,6 +154,7 @@ jobs:
         run: |
              unzip GTA5OnlineLua/YimMenu/WeaponAttribute.zip -d tmpdir/
              unzip GTA5OnlineLua/YimMenu/RScript.zip -d tmpdir/
+             unzip GTA5OnlineLua/YimMenu/RS_Missions.zip -d tmpdir2/
              
       - name: WeaponAttribute Lua Update Checker
         run: |
@@ -154,7 +165,17 @@ jobs:
            else
             echo "WeaponAttribute" > trigger.txt
            fi
-                        
+
+      - name: RS-Missions Lua Update Checker
+        run: |
+              old_hash3=$(sha256sum tmpdir2/WeaponAttribute.lua | awk '{print $1}')
+              new_hash3=$(sha256sum RS-Missions/RS_Missions.lua | awk '{print $1}')
+              if [ "$old_hash3" == "$new_hash3" ]; then
+               echo "RS-Missions无更新"
+              else
+               echo "RS-Missions" > trigger.txt
+              fi
+
       - name: RScript Lua Update Checker
         run: |
            old_hash2=$(sha256sum tmpdir/RScript.lua | awk '{print $1}')

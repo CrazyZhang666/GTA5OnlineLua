@@ -42,8 +42,18 @@ jobs:
           path: RScript
           fetch-depth: 1
 
+      - name: Checkout RS-Missions Sources
+        uses: actions/checkout@v4
+        with:
+              repository: TCRoid/YimMenu-Lua-RS-Missions
+              path: RS-Missions
+              fetch-depth: 1
+  
       - name: git pull1
         run: |
+          cd RS-Missions
+          git pull
+          cd ..
           cd WeaponAttribute
           git pull
           cd ..
@@ -120,12 +130,15 @@ jobs:
          fi 
            
       - name: Create tmpdir
-        run: mkdir tmpdir
+        run: |
+             mkdir tmpdir
+             mkdir tmpdir2
         
       - name: Upzip TCRoid's Scripts
         run: |
              unzip GTA5OnlineLua/YimMenu/WeaponAttribute.zip -d tmpdir/
              unzip GTA5OnlineLua/YimMenu/RScript.zip -d tmpdir/
+             unzip GTA5OnlineLua/YimMenu/RS_Missions.zip -d tmpdir2/
              
       - name: WeaponAttribute Lua Update Checker
         run: |
@@ -139,7 +152,20 @@ jobs:
             sed -i '/Update/d' GTA5OnlineLua/YimMenu/WeaponAttribute.ini
             echo "Update = $(date +'%Y/%m/%d')" >> GTA5OnlineLua/YimMenu/WeaponAttribute.ini
            fi
-                        
+
+      - name: RS_Missions Lua Update Checker
+        run: |
+              old_hash3=$(sha256sum tmpdir2/RS_Missions.lua | awk '{print $1}')
+              new_hash3=$(sha256sum RS-Missions/RS-Missions.lua | awk '{print $1}')
+              if [ "$old_hash3" == "$new_hash3" ]; then
+               echo "RS-Missions无更新"
+              else
+               zip -j -r tmpdir2/RS_Missions.zip RS-Missions/RS-Missions.lua
+               mv tmpdir2/RS_Missions.zip GTA5OnlineLua/YimMenu/
+               sed -i '/Update/d' GTA5OnlineLua/YimMenu/RS_Missions.ini
+               echo "Update = $(date +'%Y/%m/%d')" >> GTA5OnlineLua/YimMenu/RS_Missions.ini
+              fi      
+
       - name: RScript Lua Update Checker
         run: |
            old_hash2=$(sha256sum tmpdir/RScript.lua | awk '{print $1}')
