@@ -170,7 +170,7 @@ jobs:
         run: |
               old_hash3=$(sha256sum tmpdir2/RS_Missions.lua | awk '{print $1}')
               echo $old_hash3
-              new_hash3=$(sha256sum RS-Missions/RS-Missions.lua | awk '{print $1}')
+              new_hash3=$(sha256sum RS-Missions/RS_Missions.lua | awk '{print $1}')
               echo $new_hash3
               if [ "$old_hash3" == "$new_hash3" ]; then
                echo "RS-Missions无更新"
