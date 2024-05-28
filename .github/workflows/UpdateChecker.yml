@@ -163,6 +163,7 @@ jobs:
            if [ "$old_hash1" == "$new_hash1" ]; then
             echo "WeaponAttribute无更新"
            else
+            cd GTA5OnlineLua/
             echo "WeaponAttribute" > trigger.txt
            fi
 
@@ -175,7 +176,7 @@ jobs:
               if [ "$old_hash3" == "$new_hash3" ]; then
                echo "RS-Missions无更新"
               else
-               echo "RSmissions"
+               cd GTA5OnlineLua/
                echo "RS-Missions" > trigger.txt
               fi
 
@@ -186,6 +187,7 @@ jobs:
            if [ "$old_hash2" == "$new_hash2" ]; then
             echo "RScript.lua无更新"
            else
+            cd GTA5OnlineLua/
             echo "RScript" > trigger.txt
            fi
 
