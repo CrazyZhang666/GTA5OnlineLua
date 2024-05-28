@@ -168,7 +168,7 @@ jobs:
 
       - name: RS-Missions Lua Update Checker
         run: |
-              old_hash3=$(sha256sum tmpdir2/WeaponAttribute.lua | awk '{print $1}')
+              old_hash3=$(sha256sum tmpdir2/RS_Missions.lua | awk '{print $1}')
               new_hash3=$(sha256sum RS-Missions/RS_Missions.lua | awk '{print $1}')
               if [ "$old_hash3" == "$new_hash3" ]; then
                echo "RS-Missions无更新"
