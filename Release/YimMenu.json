@@ -51,9 +51,9 @@
     "Name": "RScript",
     "Author": "Rostal",
     "Description": "[适配GTAOL1.68]载具、NPC实体管理控制，任务助手，和其它若干功能",
-    "Version": "3.01",
-    "Update": "2024/02/14",
-    "Size": "115.15 KB",
+    "Version": "3.02",
+    "Update": "2024/07/14",
+    "Size": "124.43 KB",
     "Download": [
       "https://blog.cc2077.site/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/YimMenu/RScript.zip",
       "https://ghproxy.net/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/YimMenu/RScript.zip",
@@ -68,8 +68,8 @@
     "Author": "Rostal",
     "Description": "[适配GTAOL1.69]单人启动任务，直接完成任务，无需前置直接启动抢劫终章差事",
     "Version": "3.01",
-    "Update": "2024/07/09",
-    "Size": "14.99 KB",
+    "Update": "2024/07/14",
+    "Size": "15.33 KB",
     "Download": [
       "https://blog.cc2077.site/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/YimMenu/RS_Missions.zip",
       "https://ghproxy.net/https://raw.githubusercontent.com/CrazyZhang666/GTA5OnlineLua/main/YimMenu/RS_Missions.zip",
