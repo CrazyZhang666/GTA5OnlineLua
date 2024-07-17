@@ -2,9 +2,7 @@ name: Force sync
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-    - main
+
 
     
 jobs:
